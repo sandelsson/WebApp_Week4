@@ -29,24 +29,58 @@ let recipes = {
 let url = "http://localhost:8000/recipe/food"
 //console.log(url)
 
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  //res.render('main');
+  res.render('main', {title: 'RecipePage'})
+  //res.render('recipe', { title: 'Awesesome recipe', h1: recipes.name, h2: recipes.ingredients, p: recipes.instructions});
+});
 
-router.get('/recipe/:food_name', (req, res) => {
+router.get('/recipe/:food_name', (req, res, next) => {
   recipes.name = req.params.food_name;
   res.json(recipes);
 
 })
 
 
-/*
-fetch('http://example.com/movies.json')
-  .then(response => response.json())
-  .then(data => console.log(data));
+router.get('/recipe', (req, res, next) => {
+  res.render('recipe')
 
-*/
+})
 
+router.post('/recipe' , (req, res, next) => {
+
+  res.send(req.body)
+  //res.json(JSON.stringify(req.body))
+  //console.log(JSON.stringify(req.body))
+  //console.log(req.body.ingredients)
 /*
-fetch(url)
-  .then(response => response.json())
-  .then(data => console.log(data));
-*/
+  var data_json ={
+    "name": req.body.name,
+    "instructions": [req.body.instructions],
+    "ingredients":[req.body.ingredients]
+  */
+
+
+
+  //res.send(JSON.parse(req.body))
+  
+  
+  
+  
+  
+  
+  
+  //console.log(req.body.instructions)
+  //req.body.JSONobject;
+  //console.log(req.body)
+  //res.redirect('/recipe/')
+
+  //recipes.push(req.body);
+  //console.log(body)
+  //res.send(req.body);
+  //console.log(req.body)
+
+})
+
 module.exports = router;
