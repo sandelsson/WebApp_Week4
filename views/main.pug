@@ -9,18 +9,18 @@ html
         #container
         br
         br
-        form(action='/recipe' onsubmit="submit_function()" method ='post' id = "form" name = "form")
-            input#name-text(type='text' name ="name" placeholder = "Name of the meal")
-            h4 Ingredients
-            textarea#ingredients-text(type='text', name = 'ingredients')
-            br
-            //ul#ingredients-text-list
-            button#add-ingredient(type='button') Add ingredient
-            h4 Instructions
-            textarea#instructions-text(type='text', name ="instructions")
-            br
-            button#add-instruction(type='button') Add instruction
-            br
-            br
-            button#submit(type='submit') Submit
+        input#name-text(type="text", name="name")
+        h4= "ingredients"
+        textarea#ingredients-text(name="ingredients")
+        br
+        button#add-ingredient(type="button")|Add ingredient 
+        h4= "instructions" 
+        textarea#instructions-text(name="instructions")
+        br
+        button#add-instruction(type="button")|Add instruction 
+        br
+        br
+        form(action="/recipe")
+        button#submit(type="submit")|Submit
+
         script(src='javascripts/main.js')

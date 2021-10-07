@@ -42,45 +42,17 @@ router.get('/recipe/:food_name', (req, res, next) => {
 
 })
 
-
 router.get('/recipe', (req, res, next) => {
-  res.render('recipe')
-
+  res.render('recipe');
 })
 
 router.post('/recipe' , (req, res, next) => {
-
-  res.send(req.body)
-  //res.json(JSON.stringify(req.body))
-  //console.log(JSON.stringify(req.body))
-  //console.log(req.body.ingredients)
-/*
-  var data_json ={
-    "name": req.body.name,
-    "instructions": [req.body.instructions],
-    "ingredients":[req.body.ingredients]
-  */
-
-
-
-  //res.send(JSON.parse(req.body))
-  
-  
-  
-  
-  
-  
-  
-  //console.log(req.body.instructions)
-  //req.body.JSONobject;
-  //console.log(req.body)
-  //res.redirect('/recipe/')
-
-  //recipes.push(req.body);
-  //console.log(body)
-  //res.send(req.body);
   //console.log(req.body)
 
+  console.log("New recipe added: ", JSON.stringify(req.body), " ! ")
+  res.send(JSON.stringify(req.body));
 })
+
+
 
 module.exports = router;

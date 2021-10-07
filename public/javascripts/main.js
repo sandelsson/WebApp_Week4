@@ -1,9 +1,4 @@
 
-
-
-
-
-
 main_function = function() {
   fetch('/recipe/Food')
     .then(response => {
@@ -36,59 +31,97 @@ main_function = function() {
 
 
     })
-      .catch(error => {
-        console.log("error");
+    .catch(error => {
+      console.log("error");
     })
   }
 
+
 get_user_data = function(){
-  var instruction_list = [];
-  var ingredient_list = [];
-  //var _foodname = "";
 
-
-  document.getElementById("add-ingredient").addEventListener("click", function(){
-    const ingredient_text_area = document.getElementById("ingredients-text").value
-    ingredient_list.push(ingredient_text_area);
-    //document.forms.ingredients = ingredient_list
-    //console.log(ingredient_list);
-
-  })
-
-  document.getElementById("add-instruction").addEventListener("click", function(){
-    const instruction_text_area = document.getElementById("instructions-text").value
-    instruction_list.push(instruction_text_area);
-    //console.log(instruction_list);
-
-  })
-
-  submit_function = function(){
-    //const foodname_text_area = document.getElementById("name-text").value
-    //document.forms.ingredients = ingredient_list
-    document.getElementsByName("ingredients")[0].value = ingredient_list
-    document.getElementsByName("instructions")[0].value = instruction_list
-    //console.log(ingredient_list)
-
+  
+  //initializing json object that will be returned to the server-side and posted to /recipe
+  let json_data = {
+    "name" : "",
+    "ingredients" : [],
+    "instructions": []
   }
 
+  //creating variables for all the needed elements (buttons and textareas)
+
+  //textareas
+  const recipeTextArea = document.getElementById("name-text");
+  const ingredientsTextArea = document.getElementById("ingredients-text");
+  const instructionsTextArea = document.getElementById("instructions-text");
+  
+  //buttons
+  const addIngredientsButton = document.getElementById("add-ingredient");
+  const addInstructionsButton = document.getElementById("add-instruction");
+  const addSubmitButton = document.getElementById("submit");
 
 
 
 
 
+  //Function for adding ingredients into an array.
+  //If the textarea is empty, nothing is added to the list
+  addIngredientsButton.addEventListener("click", function () {
+
+    let ingrInput = ingredientsTextArea.value
+
+    //making sure there's some input on the textarea
+    if (ingrInput == ""){
+      console.log("*** ERR: empty string in 'ingredients-textArea");
+    } else {
+      json_data.ingredients.push(ingrInput);
+    }
+
+    console.log(json_data.ingredients)
+    });
 
 
+  addInstructionsButton.addEventListener("click", function() {
+
+    let instrInput = instructionsTextArea.value;
+
+
+    
+    //making sure there's some input on the textarea
+    if (instrInput == ""){
+      console.log("Textarea empty, nothing will be added to the list");
+    } else{
+      json_data.instructions.push(instrInput);
+    }
+    console.log(json_data.instructions)
+    //console.log("== DEBUG: inside datalist.instructions: " + JSON.stringify(json_data.instructions));
+  });
+
+
+  addSubmitButton.addEventListener("click", function() {
+
+    if (recipeTextArea.value == ""){
+      console.log("Textarea empty, empty name will be added to json_object.name")
+    }else{
+      json_data.name = recipeTextArea.value
+    }
+
+
+    fetch("/recipe", {
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(json_data) ,
+    })
+    .then(response => response.json())
+    .then(response => JSON.stringify(response))
+    .then(response => console.log(response))
+    /*.then(
+      res => console.log(res))*/
+
+
+  });
 }
 
-
-main_function()
+main_function();
 get_user_data();
-
-
-
-
-
-
-
-
-
